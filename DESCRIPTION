@@ -1,0 +1,12 @@
+Package: rcx.service
+Title: R Compute Service REST API
+Version: 0.0.1.9000
+Imports: plumber
+Authors@R: 
+    person("Magnus", "Mengelbier", , "magnus.mengelbier@limelogic.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-8673-7625"))
+Description: R REST API to execute R workloads 
+License: `use_apache_license()`
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
