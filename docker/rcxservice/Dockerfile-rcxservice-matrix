@@ -1,11 +1,18 @@
 # -- build arguments
-ARG OPENAPX_CONTAINERID="rcxservice-unknown"
 ARG OPENAPX_IMAGEOS="ubuntu"
 ARG OPENAPX_RVERTARGET="0.0.0"
 
-
 # For now ... rely on latest ubuntu baseline OS
 FROM openapx/rbin:latest-${OPENAPX_IMAGEOS}-R${OPENAPX_RVERTARGET}
+
+
+# -- build arguments
+ARG OPENAPX_CONTAINERID="rcxservice-unknown"
+
+# -- re-declare build args under FROM
+ARG OPENAPX_IMAGEOS="ubuntu"
+ARG OPENAPX_RVERTARGET="0.0.0"
+
 
 
 # -- add license file to root directory
@@ -15,7 +22,7 @@ COPY --chmod=444 LICENSE /LICENSE-rcxservice
 # -- configuration files
 #    note: this is the input location for Shell scripts below
 
-ARG DF_LIBFILE=libs-${OPENAPX_IMAGEOS}
+ENV DF_LIBFILE=libs-${OPENAPX_IMAGEOS}
 RUN echo ${DF_LIBFILE}
 COPY --chmod=444 ${DF_LIBFILE} /opt/openapx/config/rcxservice/
 
