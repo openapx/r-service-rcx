@@ -22,9 +22,7 @@ COPY --chmod=444 LICENSE /LICENSE-rcxservice
 # -- configuration files
 #    note: this is the input location for Shell scripts below
 
-ENV DF_LIBFILE=libs-${OPENAPX_IMAGEOS}
-RUN echo ${DF_LIBFILE}
-COPY --chmod=444 ${DF_LIBFILE} /opt/openapx/config/rcxservice/
+COPY --chmod=444 libs-${OPENAPX_IMAGEOS} /opt/openapx/config/rcxservice/
 
 
 
