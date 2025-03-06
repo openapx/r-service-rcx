@@ -5,16 +5,19 @@ ARG OPENAPX_RVERTARGET="0.0.0"
 
 
 # For now ... rely on latest ubuntu baseline OS
-FROM openapx/rbin:latest-$OPENAPX_IMAGEOS-R$OPENAPX_RVERTARGET
+FROM openapx/rbin:latest-${OPENAPX_IMAGEOS}-R${OPENAPX_RVERTARGET}
 
 
 # -- add license file to root directory
-COPY -chmod=444 LICENSE /LICENSE-rcxservice
+COPY --chmod=444 LICENSE /LICENSE-rcxservice
 
 
 # -- configuration files
 #    note: this is the input location for Shell scripts below
-COPY --chmod=444 libs-$OPENAPX_IMAGEOS /opt/openapx/config/rcxservice/
+
+ARG DF_LIBFILE=libs-${OPENAPX_IMAGEOS}
+RUN echo ${DF_LIBFILE}
+COPY --chmod=444 ${DF_LIBFILE} /opt/openapx/config/rcxservice/
 
 
 
@@ -24,7 +27,7 @@ COPY --chmod=444 libs-$OPENAPX_IMAGEOS /opt/openapx/config/rcxservice/
 
 #COPY --chmod=755 scripts/rcxservice/build_r.sh /scripts/rcxservice/
 RUN /opt/openapx/utilities/container-id.sh && \
-    /opt/openapx/utilities/bin-libs.sh /opt/openapx/config/rcxservice/libs-$OPENAPX_OSIMAGE && \
+    /opt/openapx/utilities/bin-libs.sh /opt/openapx/config/rcxservice/libs-${OPENAPX_IMAGEOS} && \
     rm -Rf /scripts
 
 # /scripts/rbin/build_r.sh && \
