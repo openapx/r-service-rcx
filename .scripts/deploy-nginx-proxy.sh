@@ -39,7 +39,7 @@ ln -s ${OPENAPX_SSL_KEY} ${OPENAPX_SSL_HOME}/private/key-openapx-rcxservice.pem
 # -- configure nginx with cert
 
 echo "-- enable nginx SSL on port 443"
-echo "   - reverse proxy defined for /api
+echo "   - reverse proxy defined for /api"
 echo "   - default internal API port set to ${API_PORT}"
 
 # - update nginx.conf
