@@ -4,7 +4,10 @@
 \alias{start}
 \title{Start rcx service}
 \usage{
-start()
+start(port = 12345)
+}
+\arguments{
+\item{port}{Service port}
 }
 \description{
 A standard configurable start for plumber.
