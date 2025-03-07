@@ -1,5 +1,8 @@
 #' Start rcx service
 #' 
+#' @param port Service port
+#' 
+#' 
 #' @description
 #' A standard configurable start for plumber.
 #' 
@@ -10,7 +13,7 @@
 #' 
 #' @export 
 
-start <- function() {
+start <- function( port = 12345 ) {
   
   # -- set up search locations for the plumber
   # note: start looking in ws under working directory and then go looking in .libPaths()
@@ -26,6 +29,8 @@ start <- function() {
   # -- start ... defaults for now
   api <- plumber::pr( xplumb )
 
-  plumber::pr_run( api )
+  plumber::pr_run( api, 
+                   port = Sys.getenv("API_PORT", unset = port ), 
+                   quiet = TRUE )
   
 }
