@@ -12,6 +12,8 @@ API_PORT=7749
 
 # -- generate/rotate certificate
 
+echo "-- generate self-signed certificates"
+
 # - certificate home
 OPENAPX_SSL_HOME=/etc/ssl
 
@@ -36,11 +38,15 @@ ln -s ${OPENAPX_SSL_KEY} ${OPENAPX_SSL_HOME}/private/key-openapx-rcxservice.pem
 
 # -- configure nginx with cert
 
+echo "-- enable nginx SSL on port 443"
+echo "   - reverse proxy defined for /api
+echo "   - default internal API port set to ${API_PORT}"
+
 # - update nginx.conf
 
 NGINX_CONF=/etc/nginx/nginx.conf
 
-cat > ${NGINX_CONF} <<'_EOF_'     
+cat << EOF > ${NGINX_CONF}
      
 user www-data;
 worker_processes auto;
@@ -72,6 +78,6 @@ server {
 
 }
       
-_EOF_
-        
-        
+EOF
+
+echo "-- nginx proxy configuration complete"
