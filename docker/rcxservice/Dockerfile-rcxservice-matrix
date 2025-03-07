@@ -39,3 +39,6 @@ RUN /opt/openapx/utilities/container-id.sh && \
 # find /logs/R/rbin -type f -exec chmod u+r-wx,g+r-wx,o-rwx {} \; && \
 # find /logs/R/rbin -type d -exec chmod u+rx-w,g+rx-w,o-rwx {} \; && \
 
+
+# -- expose standard port for HTTPS
+EXPOSE 443
