@@ -72,6 +72,6 @@ server {
 
 }
       
-_EOF_        
+_EOF_
         
         
