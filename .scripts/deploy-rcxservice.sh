@@ -61,7 +61,7 @@ echo "-- install R packages for service"
 
 mkdir -p /logs/openapx/rcxservice
 
-cd ${APP_HOME)
+cd ${APP_HOME}
 
 echo "   - dependencies"
 Rscript -e "install.packages( c( \"plumber\", \"jsonlite\" ), type = \"source\" )" > /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
