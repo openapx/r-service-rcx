@@ -1,5 +1,11 @@
-^cxlib\.Rproj$
+\.Rproj$
 ^\.Rproj\.user$
 ^README
+^\.github
 ^.gitignore$
 ^LICENSE$
+^docker
+^\.scripts
+^scripts
+^libs-
+
