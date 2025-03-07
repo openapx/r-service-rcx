@@ -30,12 +30,13 @@ COPY --chmod=444 libs-${OPENAPX_IMAGEOS} /opt/openapx/config/rcxservice/
 #    1) add binary library dependencies
 #    5) clean-up
 
-#COPY --chmod=755 scripts/rcxservice/build_r.sh /scripts/rcxservice/
+COPY --chmod=755 .scripts/deploy-* /scripts/rcxservice/
 RUN /opt/openapx/utilities/container-id.sh && \
     /opt/openapx/utilities/bin-libs.sh /opt/openapx/config/rcxservice/libs-${OPENAPX_IMAGEOS} && \
+    /scripts/rcxservice/deploy-rcxservice.sh && \
+    /scripts/rcxservice/deploy-nginx-proxy.sh && \
     rm -Rf /scripts
 
-# /scripts/rbin/build_r.sh && \
 # find /logs/R/rbin -type f -exec chmod u+r-wx,g+r-wx,o-rwx {} \; && \
 # find /logs/R/rbin -type d -exec chmod u+rx-w,g+rx-w,o-rwx {} \; && \
 
