@@ -70,6 +70,12 @@ echo "   - service package"
 Rscript -e "install.packages( \"/sources/rcxservice/${XSOURCE}\", type = \"source\" )" >> /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
 
 
+# -- remove deployment .Rprofile settings 
+
+echo "   - remove deployment profile"
+rm -f ${APP_HOME}/.Rprofile
+
+
 # -- clean-up
 
 echo "-- clean-up"
