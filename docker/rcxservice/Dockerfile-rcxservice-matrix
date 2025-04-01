@@ -40,6 +40,9 @@ RUN /opt/openapx/utilities/container-id.sh && \
 
 # -- app entrypoint 
 
+# -- expose standard port for HTTP
+EXPOSE 80
+
 # - expose standard port for HTTPS
 EXPOSE 443
 

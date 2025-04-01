@@ -63,6 +63,15 @@ events {
 http {
 
 server {
+    listen              80;
+    server_name         www.example.com;
+    
+    location /api {
+      proxy_pass http://127.0.0.1:${API_PORT};
+    }
+}
+
+server {
     listen              443 ssl;
     server_name         www.example.com;
     ssl_certificate     ${OPENAPX_SSL_HOME}/certs/cert-openapx-rcxservice.pem;
