@@ -23,8 +23,8 @@ SOURCE_ASSET=$(curl -s -H "Accept: application/vnd.github+json" \
                     -H "X-GitHub-Api-Version: 2022-11-28" \
                     https://api.github.com/repos/cxlib/r-package-cxapp/releases/latest )
 
-SOURCE_URL=$( echo ${SOURCE_ASSET} | jq -r '.assets[] | select( .name | match( "^rcx.service_\\d+.\\d+.\\d+.tar.gz$") ) | .browser_download_url' )
-CXAPP_SOURCE=$( echo ${SOURCE_ASSET} | jq -r '.assets[] | select( .name | match( "^rcx.service_\\d+.\\d+.\\d+.tar.gz$") ) | .name' )
+SOURCE_URL=$( echo ${SOURCE_ASSET} | jq -r '.assets[] | select( .name | match( "^cxapp_\\d+.\\d+.\\d+.tar.gz$") ) | .browser_download_url' )
+CXAPP_SOURCE=$( echo ${SOURCE_ASSET} | jq -r '.assets[] | select( .name | match( "^cxapp_\\d+.\\d+.\\d+.tar.gz$") ) | .name' )
 
 curl -sL -o /sources/cxapp/${CXAPP_SOURCE} ${SOURCE_URL}
 
