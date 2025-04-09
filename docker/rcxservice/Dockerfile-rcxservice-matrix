@@ -40,6 +40,18 @@ RUN /opt/openapx/utilities/container-id.sh && \
 
 # -- app entrypoint 
 
+# app is configured for both HTTP (port 80) and HTTPS (port 443) but HTTP (port 80) is disabled
+# by default (not exposing port 80). In some cluster configurations, SSL certificates (HTTPS) are 
+# terminated by the cluster itself and all internal communication is via HTTP. To enable HTTP, 
+# expose port 80 below. 
+
+# HTTPS uses a self-signed SSL certificate that is created when building this container so is rotated
+# for each build.
+
+
+# -- expose standard port for HTTP
+# EXPOSE 80
+
 # - expose standard port for HTTPS
 EXPOSE 443
 
