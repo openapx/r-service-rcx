@@ -44,9 +44,10 @@ service_info <- function() {
 
   # - pre-commands 
   pre_cmds <- c( paste( "cd", temp_wrk ), 
-                 paste0( "export R_RENVIRON_USER=", file.path( base::trimws(Sys.getenv("APP_HOME", unset = base::getwd() ) ), ".Renviron-default" ) ) )
+                 paste0( "export R_ENVIRON_USER=", file.path( base::trimws(Sys.getenv("APP_HOME", unset = base::getwd() ) ), ".Renviron-default" ) ) )
   
   
+
   # - info commands   
   
   info_cmds <- c( "version" = "Rscript -e \"cat( paste( R.Version()[ c( \\\"major\\\", \\\"minor\\\") ], collapse = \\\".\\\" ), sep = \\\"\\\")\"", 
