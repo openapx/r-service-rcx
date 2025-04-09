@@ -20,6 +20,12 @@ service_info <- function() {
   if ( file.exists( "/opt/openapx/container-provenance" ) )
     info[["container"]][["provenance"]] <- base::readLines( "/opt/openapx/container-provenance" )
 
+  
+  # -- add api version
+  info[["api"]] <- list( "name" = methods::getPackageName(), 
+                         "version" = utils::packageVersion( methods::getPackageName()) )
+  
+  
 
   # -- add details on R
   
