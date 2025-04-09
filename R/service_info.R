@@ -21,6 +21,10 @@ service_info <- function() {
     info[["container"]][["provenance"]] <- base::readLines( "/opt/openapx/container-provenance" )
 
   
+  # -- add APP_HOME
+  info[["home"]] <- Sys.getenv( "APP_HOME", unset = "undefined" )
+  
+  
   # -- add api version
   info[["api"]] <- list( "name" = methods::getPackageName(), 
                          "version" = base::as.character( utils::packageVersion( methods::getPackageName()) ) )
@@ -38,6 +42,10 @@ service_info <- function() {
   if ( ! dir.exists(temp_wrk) && ! dir.create( temp_wrk, recursive = TRUE ) )
     stop( "Could not create temporary directory" )
 
+  # - pre-commands 
+  pre_cmds <- c( paste( "cd", temp_wrk ), 
+                 paste0( "export R_RENVIRON_USER=", file.path( base::trimws(Sys.getenv("APP_HOME", unset = base::getwd() ) ), ".Renviron-default" ) ) )
+  
   
   # - info commands   
   
@@ -55,21 +63,18 @@ service_info <- function() {
   info[["R"]] <- list()
   
   for ( xitem in c( "version", "platform", "architecture") )
-    info[["R"]][[ xitem ]] <- system( paste( "cd", temp_wrk, ";", info_cmds[xitem] ), intern = TRUE )
+    info[["R"]][[ xitem ]] <- system( paste( c( pre_cmds, info_cmds[xitem] ), collapse = " ; " ), intern = TRUE )
 
 
   # - library tree ... i.e. .libPaths
-  
-  unlist( strsplit( system( "Rscript -e \"cat( paste( installed.packages()[, \\\"Package\\\" ], installed.packages()[, \\\"Version\\\" ], sep = \\\"/\\\"), sep = \\\"|\\\" )\"", intern = TRUE ), 
-                    "|", fixed = TRUE ) )
-  
-  info[["R"]][["libraries"]] <- unlist( strsplit( system( paste( "cd", temp_wrk, ";", info_cmds["libraries"] ), intern = TRUE ), "|", fixed = TRUE ) )
+
+  info[["R"]][["libraries"]] <- unlist( strsplit( system( paste( c( pre_cmds, info_cmds["libraries"] ), collapse = " ; " ), intern = TRUE ), "|", fixed = TRUE ) )
   
   
   
   # - packages
   
-  installed <- unlist( strsplit( system( paste( "cd", temp_wrk, ";", info_cmds["package.list"] ), intern = TRUE ), "|", fixed = TRUE ) )
+  installed <- unlist( strsplit( system( paste( c( pre_cmds, info_cmds["package.list"] ), collapse = " ; " ), intern = TRUE ), "|", fixed = TRUE ) )
 
   info[["packages"]] <- lapply( sort(installed), function(x) {
     list( "name" = gsub( "^(.*)/.*$", "\\1", x, perl = TRUE), 
