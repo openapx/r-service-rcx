@@ -23,7 +23,7 @@ service_info <- function() {
   
   # -- add api version
   info[["api"]] <- list( "name" = methods::getPackageName(), 
-                         "version" = utils::packageVersion( methods::getPackageName()) )
+                         "version" = base::as.character( utils::packageVersion( methods::getPackageName()) ) )
   
   
 
