@@ -76,6 +76,11 @@ mkdir -p ${APP_HOME} ${APP_HOME}/library
 
 echo "-- app R session configurations"
 
+echo "   - session default .Renviron"
+DEFAULT_SITELIB=$(Rscript -e "cat( .Library.site, sep = .Platform\$path.sep )")
+echo "R_LIBS_SITE=${DEFAULT_SITELIB}" > ${APP_HOME}/.Renviron-default
+
+
 echo "   - .Renviron"
 echo "R_LIBS_SITE=${APP_HOME}/library" > ${APP_HOME}/.Renviron
 
