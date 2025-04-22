@@ -123,9 +123,13 @@ mkdir -p /logs/openapx/rcxservice
 
 cd ${APP_HOME}
 
-echo "   - dependencies"
-Rscript -e "install.packages( c( \"plumber\", \"jsonlite\", \"digest\", \"httr2\", \"callr\", \"uuid\", \"zip\"), type = \"source\" )" > /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
-Rscript -e "install.packages( \"/sources/cxlib/${CXLIB_SOURCE}\", type = \"source\" )" >> /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
+echo "   - cxlib + dependencies"
+Rscript -e "install.packages( c( \"jsonlite\", \"digest\", \"httr2\", \"callr\", \"uuid\", \"zip\"), .Library, type = \"source\" )" > /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
+Rscript -e "install.packages( \"/sources/cxlib/${CXLIB_SOURCE}\", .Library, type = \"source\" )" >> /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
+
+
+echo "   - cxapp + dependencies"
+Rscript -e "install.packages( c( \"plumber\" ), type = \"source\" )" > /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
 Rscript -e "install.packages( \"/sources/cxapp/${CXAPP_SOURCE}\", type = \"source\" )" >> /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
 
 echo "   - service package"
