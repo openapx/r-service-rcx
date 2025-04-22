@@ -124,7 +124,7 @@ mkdir -p /logs/openapx/rcxservice
 cd ${APP_HOME}
 
 echo "   - cxlib + dependencies"
-Rscript -e "install.packages( c( \"jsonlite\", \"digest\", \"httr2\", \"callr\", \"uuid\", \"zip\"), .Library, type = \"source\" )" > /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
+Rscript -e "install.packages( c( \"jsonlite\", \"digest\", \"httr2\", \"callr\", \"uuid\", \"zip\", \"askpass\"), .Library, type = \"source\" )" > /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
 Rscript -e "install.packages( \"/sources/cxlib/${CXLIB_SOURCE}\", .Library, type = \"source\" )" >> /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
 
 
