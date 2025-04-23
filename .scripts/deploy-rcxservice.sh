@@ -129,7 +129,7 @@ Rscript -e "install.packages( \"/sources/cxlib/${CXLIB_SOURCE}\", .Library, type
 
 
 echo "   - cxapp + dependencies"
-Rscript -e "install.packages( c( \"plumber\" ), type = \"source\" )" > /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
+Rscript -e "install.packages( c( \"plumber\" ), type = \"source\" )" >> /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
 Rscript -e "install.packages( \"/sources/cxapp/${CXAPP_SOURCE}\", type = \"source\" )" >> /logs/openapx/rcxservice/install-service-r-packages.log 2>&1
 
 echo "   - service package"
