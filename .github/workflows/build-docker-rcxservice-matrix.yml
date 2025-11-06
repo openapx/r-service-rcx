@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu]
-        rversion: [4.4.2, 4.4.3]
+        rversion: [4.4.3, 4.5.2]
       
 #        os: [ubuntu, debian, rockylinux, fedora]
 #        rversion: [4.4.2, 4.4.3]
