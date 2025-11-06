@@ -1120,6 +1120,45 @@ function( req, res ) {
 
 
 
+#* Get ready status 
+#* 
+#* @get /api/ready
+#* 
+#* @response 200 OK
+#* @response 500 Internal Server Error
+#* @response 503 Service Unavailable
+#* 
+
+function( req, res ) {
+  
+  # -- default attributes
+  log_attributes <- c( base::toupper(req$REQUEST_METHOD), 
+                       req$REMOTE_ADDR, 
+                       req$PATH_INFO )
+  
+  cxapp::cxapp_log( "Ready status queried", attr = log_attributes )
+  
+
+  # - ready 
+  if ( rcx.service::service_ready() ) {
+    
+    res$status <- 200
+    cxapp::cxapp_log( "Node ready", attr = log_attributes )
+    
+    return(res)
+  }
+  
+
+  # - not ready  
+  cxapp::cxapp_log("Node not ready", attr = log_attributes)
+  res$status <- 503  # Service Unavailable
+  
+  return(res)
+}
+
+
+
+
 #* Ping service
 #* 
 #* @get /api/ping
