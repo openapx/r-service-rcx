@@ -29,7 +29,56 @@ service_info <- function() {
   info[["api"]] <- list( "name" = methods::getPackageName(), 
                          "version" = base::as.character( utils::packageVersion( methods::getPackageName()) ) )
   
+
+  # -- add app configuration
+
+  info[["config"]] <- list()
   
+  # - application config
+  info[["config"]][["app"]] <- list()
+  
+  cfg <- cxapp::cxapp_config()
+  
+  
+  for ( xprop in base::names(cfg$.attr[["app"]]) ) {
+   
+    # - masked
+    if ( grepl( "(token|secret|password|pwd)", xprop, ignore.case = TRUE, perl = TRUE ) &&
+         ( ! grepl( "^\\[(env|vault)\\].*",  cfg$.attr[["app"]][[xprop]], ignore.case = TRUE, perl = TRUE ) ||
+           ! grepl( "^\\$.*",  cfg$.attr[["app"]][[xprop]], ignore.case = TRUE, perl = TRUE ) ) ) {
+      
+      info[["config"]][["app"]][[ xprop ]] <- "Set (masked)"
+      next()
+      
+    }
+
+    # - add config value     
+    info[["config"]][["app"]][[ xprop ]] <- cfg$option( xprop, unset = "Not set / Defer default", as.type = FALSE )
+    
+  }
+  
+  
+  
+  # - cxlib config
+  
+  cxcfg <- cxlib::cxlib_config()
+
+
+  for ( xprop in base::names(cxcfg$.attr[["cxlib"]]) ) {
+
+    # - masked
+    if ( grepl( "(token|secret|password|pwd)", xprop, ignore.case = TRUE, perl = TRUE ) ) {
+      info[["config"]][["cxlib"]][[ xprop ]] <- "Set (masked)"
+      next()
+    }
+
+    # - add config value
+    info[["config"]][["cxlib"]][[ xprop ]] <- cfg$option( xprop, unset = "Not set / Defer default", as.type = FALSE )
+
+  }
+  
+  
+    
 
   # -- add details on R
   
